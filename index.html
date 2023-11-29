@@ -1,23 +1,28 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-        #root {
-            width: 100vw;
-            height: 100vh;
-            }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Acceptance</title>
 </head>
-
-
 <body>
-    <div>
-    <h2> I Love you dipu </h2>
-    </div>    
-    <div id="root">
-        
-    </div>
+
+  <h2>Life/Boyfriend Proposal</h2>
+  <p>Do you accept the proposal?</p>
+
+  <form action="YOUR_EMAIL_SENDING_SCRIPT_OR_SERVICE" method="post">
+    <label for="accept">Yes, I accept</label>
+    <input type="checkbox" id="accept" name="accept" value="yes">
+
+    <br>
+
+    <label for="reject">No, I decline</label>
+    <input type="checkbox" id="reject" name="reject" value="no">
+
+    <br>
+
+    <input type="submit" value="Submit">
+  </form>
+
 </body>
-
-
 </html>
