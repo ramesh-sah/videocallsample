@@ -1,99 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proposal Acceptance</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    h2 {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: 0;
-      opacity: 0;
-      animation: fadeIn 1s forwards;
-    }
-
-    form {
-      margin-top: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 5px;
-    }
-
-    input[type="submit"] {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    input[type="submit"]:hover {
-      background-color: #45a049;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-  </style>
+    <style>
+        #root {
+            width: 100vw;
+            height: 100vh;
+            }
+    </style>
 </head>
+
+
 <body>
-
-  <h2>My Dearest Dipu,
-
-I trust this letter reaches you in high spirits. It brings me immense joy and warmth to convey the emotions that have developed within me over time.
-
-Since our initial meeting three years ago in our hometown to the delightful conversations we've enjoyed in the last three months, every moment spent with you has been enchanting. Our journey of getting to know each other has been marked by laughter, understanding, and a deepening connection that I cannot overlook.
-
-As I put these thoughts into words, I recognize that my feelings for you have evolved into something more profound and meaningful. Dipu, I hold dear the time we share together, whether it's the smiles we exchange, our late-night conversations, or the simple happiness of having you in my life.
-
-With a heart full of love and sincerity, I have a special question for you. Dipu, would you do me the incredible honor of being my girlfriend? I envision a future where we continue to build beautiful memories together, just as you have become an integral part of my life.
-
-While I cherish the beauty of our friendship and value it deeply, my feelings for you have transcended friendship. I understand that this is a significant step for both of us, so please take your time to ponder it. Regardless of your response, know that I hold you in high regard and cherish the bond we share.
-
-Anticipating whatever the future may bring for us, Dipu.
-
-With all my love,
-Ramesh Sah
-</h2>
-
-  <form action="YOUR_EMAIL_SENDING_SCRIPT_OR_SERVICE" method="post">
-    <label for="accept">Yes, I accept</label>
-    <input type="checkbox" id="accept" name="accept" value="yes">
-
-    <br>
-
-    <label for="reject">No, I decline</label>
-    <input type="checkbox" id="reject" name="reject" value="no">
-
-    <br>
-
-    <input type="submit" value="Submit">
-  </form>
-
+    <div id="root"></div>
 </body>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script>
+window.onload = function () {
+    function getUrlParams(url) {
+        let urlStr = url.split('?')[1];
+        const urlSearchParams = new URLSearchParams(urlStr);
+        const result = Object.fromEntries(urlSearchParams.entries());
+        return result;
+    }
+
+
+        // Generate a Token by calling a method.
+        // @param 1: appID
+        // @param 2: serverSecret
+        // @param 3: Room ID
+        // @param 4: User ID
+        // @param 5: Username
+    const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
+    const userID = Math.floor(Math.random() * 10000) + "";
+    const userName = "{{ name }}" + userID;
+    const appID = 2005778805;
+    const serverSecret = "ea2d1d688fe9eca223d8a5c4bdef378c";
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+
+    
+        const zp = ZegoUIKitPrebuilt.create(kitToken);
+        zp.joinRoom({
+            container: document.querySelector("#root"),
+            sharedLinks: [{
+                name: 'Personal link',
+                url: window.location.protocol + '//' + window.location.host  + window.location.pathname + '?roomID=' + roomID,
+            }],
+            scenario: {
+                mode: ZegoUIKitPrebuilt.VideoConference,
+            },
+                
+           	turnOnMicrophoneWhenJoining: true,
+           	turnOnCameraWhenJoining: true,
+           	showMyCameraToggleButton: true,
+           	showMyMicrophoneToggleButton: true,
+           	showAudioVideoSettingsButton: true,
+           	showScreenSharingButton: true,
+           	showTextChat: true,
+           	showUserList: true,
+           	maxUsers: 2,
+           	layout: "Auto",
+           	showLayoutButton: false,
+         
+            });
+}
+</script>
+
 </html>
